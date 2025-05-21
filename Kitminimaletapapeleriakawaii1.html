@@ -5,20 +5,32 @@
   <title>Kit Mini Maleta Papelería Kawaii</title>
   <style>
     html, body {
-      margin: 0;
+      margin: 0; 
       padding: 0;
-      overflow: hidden; /* 🔸 Elimina scroll */
-      background: linear-gradient(135deg, #fdf0f3, #fce4ec);
+      overflow: hidden;
       width: 100%;
       height: 100%;
+      background: transparent;  /* Fondo transparente para Notion */
     }
 
+    /* Contenedor con fondo degradado solo detrás de las imágenes */
     .carousel-container {
       width: min(100%, 15cm);
       height: 20cm;
+      margin: auto;
+      background: linear-gradient(135deg, #ffd1dc, #ffe4e1, #e0ffff, #f3e5f5); /* 🎨 Degradado pastel */
+      background-size: 400% 400%;
+      animation: gradientAnimation 20s ease infinite;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-sizing: border-box;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .swiper {
@@ -30,7 +42,9 @@
       width: 100%;
       height: auto;
       object-fit: contain;
-      border: 0.5px solid black; /* 🔸 Borde de imagen */
+      border: 0.5px solid black; /* borde fino negro */
+      box-sizing: border-box;
+      background: transparent; /* que la imagen no opaque el degradado */
     }
 
     .swiper-button-next,
