@@ -6,24 +6,29 @@
   <title>Kit Mini Maleta Papelería Kawaii 1</title>
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <style>
+    /* MODIFICACIONES EN EL FONDO DE LA PÁGINA */
     body {
       margin: 0;
-      background: #fff; /* <-- MODIFICACIÓN: fondo blanco para no mostrar color de fondo externo */
+      background: #ffd6dc; /* rosa pastel moderno */
       font-family: sans-serif;
       display: flex;
       justify-content: center;
-      padding: 2rem;
-      user-select: none; /* Bloquea selección en toda la página */
+      align-items: center; /* centra verticalmente */
+      height: 20cm; /* igual que el alto del swiper */
+      width: 15cm;  /* igual que el ancho del swiper */
+      overflow: hidden; /* elimina scroll o espacios extra */
+      user-select: none;
     }
     .swiper {
-      width: 15cm;
-      max-width: 100%;
-      height: 20cm;
-      max-height: 100vh;
+      width: 100%;
+      height: 100%;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      background: #fff; /* <-- MODIFICACIÓN: fondo blanco para el contenedor */
+      background: transparent; /* SIN color para no añadir espacio visible */
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .swiper-slide {
@@ -38,7 +43,7 @@
       object-fit: contain;
       display: block;
 
-      border: 1px solid black; /* <-- MODIFICACIÓN: borde único negro de 1px */
+      border: 0.5px solid black; /* Borde más delgado */
 
       border-radius: 8px;
       box-sizing: border-box;
@@ -48,8 +53,8 @@
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-      pointer-events: none; /* Evita interacción con la imagen (clic, arrastrar) */
-      -webkit-touch-callout: none; /* iOS Safari */
+      pointer-events: none;
+      -webkit-touch-callout: none;
       -webkit-user-drag: none;
     }
   </style>
@@ -62,35 +67,4 @@
         <img src="https://raw.githubusercontent.com/USUARIO/REPOSITORIO/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1incluye.jpg" alt="Incluye" />
       </div>
       <div class="swiper-slide">
-        <img src="https://raw.githubusercontent.com/USUARIO/REPOSITORIO/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1foto.jpg" alt="Foto" />
-      </div>
-    </div>
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-  </div>
-
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script>
-    // Bloquear menú contextual (clic derecho) en toda la página
-    document.addEventListener('contextmenu', event => event.preventDefault());
-
-    const swiper = new Swiper('.swiper', {
-      loop: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-    });
-  </script>
-
-</body>
-</html>
+        <img src="https://raw.githubusercontent.com/USUARIO/REPOSITORIO/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1foto
