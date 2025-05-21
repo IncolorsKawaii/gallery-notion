@@ -8,7 +8,7 @@
   <style>
     body {
       margin: 0;
-      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); /* Fondo pastel moderno degradado */
+      background: #fff; /* <-- MODIFICACIÓN: fondo blanco para no mostrar color de fondo externo */
       font-family: sans-serif;
       display: flex;
       justify-content: center;
@@ -23,6 +23,7 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      background: #fff; /* <-- MODIFICACIÓN: fondo blanco para el contenedor */
     }
 
     .swiper-slide {
@@ -36,7 +37,9 @@
       max-height: 100%;
       object-fit: contain;
       display: block;
-      border: 1mm solid #000;
+
+      border: 1px solid black; /* <-- MODIFICACIÓN: borde único negro de 1px */
+
       border-radius: 8px;
       box-sizing: border-box;
 
@@ -56,10 +59,10 @@
   <div class="swiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
-        <img src="https://raw.githubusercontent.com/IncolorsKawaii/gallery-notion/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1incluye.jpg" alt="Incluye" />
+        <img src="https://raw.githubusercontent.com/USUARIO/REPOSITORIO/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1incluye.jpg" alt="Incluye" />
       </div>
       <div class="swiper-slide">
-        <img src="https://raw.githubusercontent.com/IncolorsKawaii/gallery-notion/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1foto.jpg" alt="Foto" />
+        <img src="https://raw.githubusercontent.com/USUARIO/REPOSITORIO/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1foto.jpg" alt="Foto" />
       </div>
     </div>
     <div class="swiper-pagination"></div>
