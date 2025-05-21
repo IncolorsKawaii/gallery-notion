@@ -6,26 +6,27 @@
   <title>Kit Mini Maleta Papelería Kawaii 1</title>
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <style>
-    /* MODIFICACIONES EN EL FONDO DE LA PÁGINA */
+    /* FONDO CON DEGRADADO PASTEL MODERNO */
     body {
       margin: 0;
-      background: #ffd6dc; /* rosa pastel moderno */
-      font-family: sans-serif;
+      background: linear-gradient(135deg, #ffd6dc 0%, #fff0f5 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       justify-content: center;
-      align-items: center; /* centra verticalmente */
-      height: 20cm; /* igual que el alto del swiper */
-      width: 15cm;  /* igual que el ancho del swiper */
-      overflow: hidden; /* elimina scroll o espacios extra */
+      align-items: center;
+      height: 20cm;
+      width: 15cm;
+      overflow: hidden;
       user-select: none;
     }
+
     .swiper {
       width: 100%;
       height: 100%;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      background: transparent; /* SIN color para no añadir espacio visible */
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      background: transparent;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -42,13 +43,11 @@
       max-height: 100%;
       object-fit: contain;
       display: block;
-
-      border: 0.5px solid black; /* Borde más delgado */
-
+      border: 0.5px solid black; /* borde más delgado */
       border-radius: 8px;
       box-sizing: border-box;
 
-      /* Dificultar descarga - evitar arrastre y selección */
+      /* Evitar descarga y arrastre */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -67,4 +66,34 @@
         <img src="https://raw.githubusercontent.com/IncolorsKawaii/gallery-notion/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1incluye.jpg" alt="Incluye" />
       </div>
       <div class="swiper-slide">
-        <img src="https://raw.githubusercontent.com/IncolorsKawaii/gallery-notion/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1foto
+        <img src="https://raw.githubusercontent.com/IncolorsKawaii/gallery-notion/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1foto.jpg" alt="Foto" />
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>
+
+</body>
+</html>
