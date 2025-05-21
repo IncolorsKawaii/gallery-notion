@@ -6,7 +6,7 @@
   <title>Kit Mini Maleta Papelería Kawaii 1</title>
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <style>
-    /* FONDO CON DEGRADADO PASTEL MODERNO */
+    /* FONDO */
     body {
       margin: 0;
       background: linear-gradient(135deg, #ffd6dc 0%, #fff0f5 100%);
@@ -14,8 +14,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 20cm;
-      width: 15cm;
+
+      /* Responsive max size */
+      max-width: 15cm;
+      max-height: 20cm;
+
+      /* Que ocupe hasta 90% del viewport */
+      width: 90vw;
+      height: 90vh;
+
       overflow: hidden;
       user-select: none;
     }
