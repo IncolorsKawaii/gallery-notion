@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Kit mini maleta papelería kawaii 1</title>
+  <title>Galería de Productos</title>
   <style>
     body {
       background: #fffdfc;
@@ -21,15 +21,15 @@
   <div id="my-gallery"></div>
 
   <!-- Galería Cloudinary -->
-  <script src="https://unpkg.com/@cloudinary/gallery-widget@1.4.0/dist/cloudinary-gallery-widget.min.js"></script>
+  <script src="https://product-gallery.cloudinary.com/all.js" type="text/javascript"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const myGallery = cloudinary.galleryWidget({
         container: "#my-gallery",
         cloudName: "dcfohkoem",
         mediaAssets: [
-          { tag: "Kit mini maleta papelería kawaii 1" },
-          { tag: "maletapapeleria1" }
+          { tag: "maletapapeleria1" },
+          { tag: "Kit mini maleta papelería kawaii 1" }
         ],
         carouselStyle: "indicators",
         carouselLocation: "bottom",
@@ -44,4 +44,3 @@
   </script>
 </body>
 </html>
-
