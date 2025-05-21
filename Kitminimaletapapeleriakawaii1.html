@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kit mini maleta papelería kawaii 1</title>
+  <style>
+    body {
+      background: #fffdfc;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #my-gallery {
+      max-width: 800px;
+      margin: 50px auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="my-gallery"></div>
+
+  <!-- Galería Cloudinary -->
+  <script src="https://unpkg.com/@cloudinary/gallery-widget@1.4.0/dist/cloudinary-gallery-widget.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const myGallery = cloudinary.galleryWidget({
+        container: "#my-gallery",
+        cloudName: "dcfohkoem",
+        mediaAssets: [
+          { tag: "Kit mini maleta papelería kawaii 1" },
+          { tag: "maletapapeleria1" }
+        ],
+        carouselStyle: "indicators",
+        carouselLocation: "bottom",
+        transition: "slide",
+        zoom: true,
+        autoplay: true,
+        autoplaySpeed: 6000
+      });
+
+      myGallery.render();
+    });
+  </script>
+</body>
+</html>
+
