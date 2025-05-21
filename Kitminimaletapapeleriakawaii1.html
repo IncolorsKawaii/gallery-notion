@@ -23,12 +23,21 @@
       overflow: hidden;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
-    .swiper-slide img {
-      width: 100%;
-      height: 100%;
+        .swiper-slide {                             /* NUEVO */
+      display: flex;                           /* NUEVO */
+      justify-content: center;                 /* NUEVO */
+      align-items: center;                     /* NUEVO */
+      height: 100%;                            /* NUEVO */
+    }
+    .swiper-slide img {                         /* MODIFICADO */
+      max-width: 100%;                         /* MODIFICADO */
+      max-height: 100%;                        /* MODIFICADO */
       object-fit: contain;
       display: block;
-    }
+      border: 5px solid #000;                  /* NUEVO */
+      border-radius: 8px;                      /* NUEVO */
+      box-sizing: border-box;                  /* NUEVO */
+  
   </style>
 </head>
 <body>
