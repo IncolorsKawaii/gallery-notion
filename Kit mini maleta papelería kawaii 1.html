@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Galería Cloudinary</title>
+  <script src="https://media-library.cloudinary.com/global/all.js" defer></script>
+  <script src="https://unpkg.com/@cloudinary/gallery-widget@1.4.0/dist/cloudinary-gallery-widget.min.js" defer></script>
+  <style>
+    #my-gallery {
+      max-width: 600px;
+      margin: 40px auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="my-gallery"></div>
+  <script>
+    window.onload = function() {
+      const myGallery = cloudinary.galleryWidget({
+        container: '#my-gallery',
+        cloudName: 'dcfohkoem',
+        mediaAssets: [
+          { tag: 'Kit mini maleta papelería kawaii 1' }
+        ],
+        carouselStyle: "indicators",
+        transition: "slide",
+        zoom: true,
+        autoplay: true,
+        autoplaySpeed: 6000 // 6000 ms = 6 segundos
+      });
+      myGallery.render();
+    };
+  </script>
+</body>
+</html>
