@@ -200,6 +200,9 @@
   <div id="mensaje"></div>
 
   <script>
+
+
+
     function obtenerCarrito() {
       const carrito = localStorage.getItem('carritoIncolorsKawaii');
       return carrito ? JSON.parse(carrito) : {};
@@ -322,6 +325,19 @@
 
     // Inicializar tabla al cargar página
     actualizarTabla();
+
+
+window.addEventListener('message', (event) => {
+  // Validar que el mensaje venga de tu dominio Super.so
+  if (event.origin !== 'https://incolors-kawaii.super.site') return;
+
+  const data = event.data;
+  if (data.type === 'add-to-cart' && data.product) {
+    const { id, name, price } = data.product;
+    agregarAlCarrito(id, name, price);
+  }
+});
+
   </script>
 </body>
 </html>
