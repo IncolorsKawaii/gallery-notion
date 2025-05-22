@@ -2,82 +2,88 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Kit Mini Maleta Papelería Kawaii</title>
+  <title>Kit mini maleta papelería kawaii 1</title>
   <style>
-    html, body {
-      margin: 0; 
+    /* Reset márgenes, paddings y box-sizing para todo */
+    *, *::before, *::after {
+      margin: 0;
       padding: 0;
-      overflow: hidden;
-      width: 100%;
-      height: 100%;
-      background: transparent;  /* Fondo transparente para Notion */
-    }
-
-    /* Contenedor con fondo degradado solo detrás de las imágenes */
-    .carousel-container {
-      width: min(100%, 15cm);
-      height: 20cm;
-      margin: auto;
-      background: linear-gradient(135deg, #ffd1dc, #ffe4e1, #e0ffff, #f3e5f5); /* 🎨 Degradado pastel */
-      background-size: 400% 400%;
-      animation: gradientAnimation 20s ease infinite;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       box-sizing: border-box;
     }
 
-    @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    html, body {
+      width: 566px;  /* 15cm aprox */
+      height: 755px; /* 20cm aprox */
+      overflow: hidden; /* sin scrollbars */
+      background: linear-gradient(135deg, #ffd1dc, #ffe4e1, #e0ffff, #f3e5f5);
+      font-family: sans-serif;
+      -webkit-user-select: none; /* evita selección */
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
-    .swiper {
+    .carousel-container {
       width: 100%;
       height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent; /* no fondo adicional */
+    }
+
+    .swiper-container {
+      width: 90%;
+      height: 90%;
+      border: 0.5mm solid black; /* borde de la imagen */
+      border-radius: 8px;
+      overflow: hidden;
+      background: white;
     }
 
     .swiper-slide img {
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: contain;
-      border: 0.5px solid black; /* borde fino negro */
-      box-sizing: border-box;
-      background: transparent; /* que la imagen no opaque el degradado */
+      pointer-events: none; /* no permitir click derecho */
+      -webkit-user-drag: none; /* no arrastrar imagen */
     }
 
+    /* Estilos para flechas */
     .swiper-button-next,
     .swiper-button-prev {
-      color: #ff69b4;
-    }
-
-    .swiper-pagination-bullet-active {
-      background-color: #ff69b4;
+      color: black;
     }
   </style>
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+  <!-- Swiper CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+  />
 </head>
 <body>
   <div class="carousel-container">
-    <div class="swiper">
+    <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <img src="https://raw.githubusercontent.com/IncolorsKawaii/gallery-notion/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1foto.jpg" alt="Foto 1" />
+          <img src="https://raw.githubusercontent.com/IncolorsKawaii/gallery-notion/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1incluye.jpg" alt="Imagen 1" />
         </div>
         <div class="swiper-slide">
-          <img src="https://raw.githubusercontent.com/IncolorsKawaii/gallery-notion/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1incluye.jpg" alt="Foto 2" />
+          <img src="https://raw.githubusercontent.com/IncolorsKawaii/gallery-notion/main/imagesfotos/kitmaletapapeleria1/kitminipapeleria1foto.jpg" alt="Imagen 2" />
         </div>
       </div>
+
+      <!-- Botones de navegación -->
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
-      <div class="swiper-pagination"></div>
     </div>
   </div>
 
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script>
-    const swiper = new Swiper(".swiper", {
+    const swiper = new Swiper(".swiper-container", {
       loop: true,
       autoplay: {
         delay: 5000,
@@ -86,10 +92,6 @@
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
       },
     });
   </script>
