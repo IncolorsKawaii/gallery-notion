@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Botón WhatsApp</title>
+<style>
+  /* Reset básico para que se vea limpio */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: transparent; /* para que no tenga fondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* ocupar pantalla completa para demo */
+  }
+
+  .whatsapp-button {
+    background-color: #25D366; /* verde WhatsApp */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  .whatsapp-button:hover {
+    background-color: #1DA851;
+  }
+
+  /* Icono WhatsApp SVG pequeño */
+  .whatsapp-icon {
+    width: 24px;
+    height: 24px;
+    fill: white;
+  }
+</style>
+</head>
+<body>
+
+<a
+  href="https://wa.me/521234567890?text=Hola%2C%20quiero%20consultar%20sobre%20Kit%20mini%20maleta"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="whatsapp-button"
+>
+  <svg
+    class="whatsapp-icon"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path d="M20.52 3.48A11.917 11.917 0 0012 0C5.372 0 0 5.373 0 12c0 2.107.59 4.072 1.62 5.754L0 24l6.476-1.66A11.962 11.962 0 0012 24c6.627 0 12-5.373 12-12 0-3.207-1.254-6.22-3.48-8.52zm-8.52 18c-1.913 0-3.718-.536-5.25-1.465l-.377-.224-3.837.983 1.03-3.746-.244-.382A8.958 8.958 0 013 12c0-4.962 4.038-9 9-9 2.406 0 4.66.936 6.364 2.632A8.94 8.94 0 0121 12c0 4.962-4.038 9-9 9zm5.395-6.23c-.297-.148-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.766.967-.94 1.165-.173.198-.347.223-.644.074-.297-.148-1.255-.462-2.39-1.476-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.148-.174.198-.297.297-.495.099-.198.05-.371-.025-.52-.075-.148-.67-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.007-.371-.009-.57-.009-.198 0-.52.074-.793.372-.273.297-1.04 1.015-1.04 2.479 0 1.464 1.065 2.875 1.213 3.074.148.198 2.095 3.2 5.07 4.487.708.305 1.26.487 1.69.623.71.226 1.36.194 1.872.118.571-.085 1.758-.718 2.006-1.411.248-.694.248-1.29.173-1.411-.074-.121-.273-.198-.57-.347z"/>
+  </svg>
+  Solicitar en WhatsApp
+</a>
+
+</body>
+</html>
