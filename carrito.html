@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carrito IncolorsKawaii</title>
+  <title>Carrito editable IncolorsKawaii</title>
   <style>
+    /* (Mismo CSS que antes, para acortar no lo repito) */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #FFF0F5; /* pastel suave */
+      background: #FFF0F5;
       margin: 0; padding: 1rem;
       color: #333;
     }
@@ -67,6 +68,13 @@
     th {
       background-color: #FFB6C1;
       color: #4B0082;
+    }
+    input.cantidadInput {
+      width: 50px;
+      font-size: 1rem;
+      text-align: center;
+      border-radius: 4px;
+      border: 1px solid #C71585;
     }
     #formDatos {
       max-width: 600px;
@@ -132,7 +140,6 @@
 
   <h1>Catálogo IncolorsKawaii</h1>
 
-  <!-- Productos demo para agregar -->
   <div class="productos" id="productos">
     <div class="producto" data-id="prod1" data-nombre="Kit Papelería Mini" data-precio="12000">
       <h3>Kit Papelería Mini</h3>
@@ -151,7 +158,6 @@
     </div>
   </div>
 
-  <!-- Carrito -->
   <div id="carrito">
     <h2>Tu Carrito 🛒</h2>
     <table id="tablaCarrito">
@@ -159,13 +165,11 @@
         <tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th><th>Quitar</th></tr>
       </thead>
       <tbody>
-        <!-- items se agregan con JS -->
       </tbody>
     </table>
     <div id="totalCarrito" style="text-align:right; font-weight:bold; font-size:1.2rem;">Total: $0</div>
   </div>
 
-  <!-- Formulario de datos -->
   <form id="formDatos">
     <h2>Datos de envío y contacto</h2>
 
@@ -196,18 +200,16 @@
   <div id="mensaje"></div>
 
   <script>
-    // Función para obtener carrito de localStorage
     function obtenerCarrito() {
       const carrito = localStorage.getItem('carritoIncolorsKawaii');
       return carrito ? JSON.parse(carrito) : {};
     }
 
-    // Función para guardar carrito en localStorage
     function guardarCarrito(carrito) {
       localStorage.setItem('carritoIncolorsKawaii', JSON.stringify(carrito));
     }
 
-    // Función para actualizar tabla carrito en pantalla
+    // Actualizar tabla carrito, ahora con input editable para cantidad
     function actualizarTabla() {
       const carrito = obtenerCarrito();
       const tbody = document.querySelector('#tablaCarrito tbody');
@@ -222,46 +224,58 @@
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${item.nombre}</td>
-          <td>${item.cantidad}</td>
+          <td><input class="cantidadInput" type="number" min="1" value="${item.cantidad}" data-id="${id}" /></td>
           <td>$${item.precio.toLocaleString()}</td>
           <td>$${subtotal.toLocaleString()}</td>
           <td><button onclick="quitarDelCarrito('${id}')">X</button></td>
         `;
         tbody.appendChild(tr);
       }
-
       document.getElementById('totalCarrito').textContent = `Total: $${total.toLocaleString()}`;
+
+      // Añadir event listeners para los inputs de cantidad
+      document.querySelectorAll('.cantidadInput').forEach(input => {
+        input.addEventListener('change', function() {
+          const id = this.dataset.id;
+          let nuevaCantidad = parseInt(this.value);
+          if (isNaN(nuevaCantidad) || nuevaCantidad < 1) {
+            nuevaCantidad = 1;
+            this.value = '1';
+          }
+          modificarCantidad(id, nuevaCantidad);
+        });
+      });
     }
 
-    // Función para agregar producto
     function agregarAlCarrito(id, nombre, precio) {
       const carrito = obtenerCarrito();
-
       if (carrito[id]) {
-        carrito[id].cantidad++;
+        carrito[id].cantidad += 1;
       } else {
         carrito[id] = { nombre, precio, cantidad: 1 };
       }
-
       guardarCarrito(carrito);
       actualizarTabla();
     }
 
-    // Función para quitar producto
     function quitarDelCarrito(id) {
       const carrito = obtenerCarrito();
+      delete carrito[id];
+      guardarCarrito(carrito);
+      actualizarTabla();
+    }
+
+    function modificarCantidad(id, cantidad) {
+      const carrito = obtenerCarrito();
       if (carrito[id]) {
-        delete carrito[id];
+        carrito[id].cantidad = cantidad;
         guardarCarrito(carrito);
         actualizarTabla();
       }
     }
 
-    // Al cargar la página, actualizar carrito si hay datos
-    window.onload = actualizarTabla;
-
-    // Enviar pedido por WhatsApp
-    document.getElementById('formDatos').addEventListener('submit', function (e) {
+    // Envío a WhatsApp con mensaje con productos y datos de envío
+    document.getElementById('formDatos').addEventListener('submit', function(e) {
       e.preventDefault();
       const carrito = obtenerCarrito();
       if (Object.keys(carrito).length === 0) {
@@ -277,8 +291,7 @@
       const ciudadDepto = document.getElementById('ciudadDepto').value.trim();
       const celular = document.getElementById('celular').value.trim();
 
-      // Construir mensaje WhatsApp
-      let mensaje = 'Pedido IncolorsKawaii 🛍️%0A%0A';
+      let mensaje = `🛒 Pedido IncolorsKawaii:%0A%0A`;
       mensaje += '🛒 Productos:%0A';
 
       let total = 0;
@@ -299,20 +312,16 @@
       mensaje += `• Ciudad y departamento: ${encodeURIComponent(ciudadDepto)}%0A`;
       mensaje += `• Celular: ${encodeURIComponent(celular)}%0A`;
 
-      // Número destino WhatsApp
       const numeroWhatsapp = '573103723198';
       const urlWhatsapp = `https://wa.me/${numeroWhatsapp}?text=${mensaje}`;
 
-      // Abrir WhatsApp en nueva pestaña
       window.open(urlWhatsapp, '_blank');
 
-      // Opcional: limpiar carrito y formulario o mostrar mensaje
-      // localStorage.removeItem('carritoIncolorsKawaii');
-      // this.reset();
       document.getElementById('mensaje').textContent = 'Se abrió WhatsApp con tu pedido. ¡Gracias!';
-
     });
-  </script>
 
+    // Inicializar tabla al cargar página
+    actualizarTabla();
+  </script>
 </body>
 </html>
