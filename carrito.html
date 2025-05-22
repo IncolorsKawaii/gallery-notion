@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Carrito de Compras Kawaii</title>
+<style>
+  /* Reset básicos */
+  * {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f9d5d3, #fcefee, #d7e9f7);
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  h2, h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #6a3d53;
+  }
+  .producto {
+    background: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(106,61,83,0.2);
+  }
+  .producto h4 {
+    margin-bottom: 6px;
+    color: #9e5572;
+  }
+  .producto p {
+    margin-bottom: 8px;
+    color: #6a3d53;
+  }
+  label {
+    font-size: 14px;
+    color: #6a3d53;
+  }
+  input[type="number"],
+  input[type="text"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 6px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    border: 1.5px solid #9e5572;
+    border-radius: 6px;
+  }
+  input[type="number"] {
+    max-width: 80px;
+  }
+  button {
+    display: block;
+    background: #9e5572;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #6a3d53;
+  }
+  .total {
+    font-weight: bold;
+    font-size: 18px;
+    color: #6a3d53;
+    margin-top: 10px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h2>Carrito de Compras Kawaii</h2>
+
+<div id="productos-lista">
+  <!-- Productos se cargarán aquí dinámicamente -->
+</div>
+
+<h3>Datos para envío</h3>
+<form id="formDatos">
+  <label for="nombre">Nombre de la persona que recibe:</label>
+  <input type="text" id="nombre" required />
+
+  <label for="cedula">Cédula:</label>
+  <input type="text" id="cedula" required />
+
+  <label for="direccion">Dirección:</label>
+  <input type="text" id="direccion" required />
+
+  <label for="datosAdicionales">Datos adicionales (casa / piso / apto / torre):</label>
+  <input type="text" id="datosAdicionales" />
+
+  <label for="barrio">Barrio:</label>
+  <input type="text" id="barrio" required />
+
+  <label for="ciudadDepartamento">Ciudad y departamento:</label>
+  <input type="text" id="ciudadDepartamento" required />
+
+  <label for="celular">Celular:</label>
+  <input type="tel" id="celular" required />
+</form>
+
+<div class="total" id="total-pedido">Total: $0</div>
+
+<button id="btnWhatsApp">Comprar por WhatsApp</button>
+
+<script>
+  // Datos iniciales de productos
+  const productos = [
+    {
+      id: "kitminimaleta",
+      nombre: "Kit Mini Maleta Papelería Kawaii",
+      precio: 25000,
+      cantidad: 1,
+    },
+    {
+      id: "setstickers",
+      nombre: "Set de Stickers Kawaii",
+      precio: 12000,
+      cantidad: 1,
+    },
+    {
+      id: "cuadernokawaii",
+      nombre: "Cuaderno Kawaii",
+      precio: 15000,
+      cantidad: 1,
+    },
+  ];
+
+  // Referencias DOM
+  const productosLista = document.getElementById("productos-lista");
+  const totalPedido = document.getElementById("total-pedido");
+  const btnWhatsApp = document.getElementById("btnWhatsApp");
+
+  // Función para actualizar total
+  function actualizarTotal() {
+    const total = productos.reduce(
+      (sum, p) => sum + p.precio * p.cantidad,
+      0
+    );
+    totalPedido.textContent = `Total: $${total.toLocaleString()}`;
+  }
+
+  // Función para crear inputs de productos dinámicamente
+  function cargarProductos() {
+    productosLista.innerHTML = "";
+    productos.forEach((p, idx) => {
+      const div = document.createElement("div");
+      div.classList.add("producto");
+      div.innerHTML = `
+        <h4>${p.nombre}</h4>
+        <p>Precio unitario: $${p.precio.toLocaleString()}</p>
+        <label>Cantidad:
+          <input type="number" min="0" value="${p.cantidad}" data-index="${idx}" />
+        </label>
+      `;
+      productosLista.appendChild(div);
+    });
+  }
+
+  // Detectar cambio en cantidad
+  productosLista.addEventListener("input", (e) => {
+    if (e.target.tagName === "INPUT" && e.target.type === "number") {
+      const idx = e.target.getAttribute("data-index");
+      const val = parseInt(e.target.value);
+      productos[idx].cantidad = val >= 0 ? val : 0;
+      actualizarTotal();
+    }
+  });
+
+  // Botón WhatsApp
+  btnWhatsApp.addEventListener("click", () => {
+    // Validar que haya al menos un producto con cantidad > 0
+    if (!productos.some(p => p.cantidad > 0)) {
+      alert("Por favor, seleccione al menos un producto.");
+      return;
+    }
+
+    // Validar datos del formulario
+    const nombre = document.getElementById("nombre").value.trim();
+    const cedula = document.getElementById("cedula").value.trim();
+    const direccion = document.getElementById("direccion").value.trim();
+    const datosAdicionales = document.getElementById("datosAdicionales").value.trim();
+    const barrio = document.getElementById("barrio").value.trim();
+    const ciudadDepartamento = document.getElementById("ciudadDepartamento").value.trim();
+    const celular = document.getElementById("celular").value.trim();
+
+    if (!nombre || !cedula || !direccion || !barrio || !ciudadDepartamento || !celular) {
+      alert("Por favor, complete todos los campos obligatorios.");
+      return;
+    }
+
+    // Crear mensaje para WhatsApp
+    let mensaje = "📦 *Pedido Papelería Kawaii*\n\n*Productos:*\n";
+    productos.forEach(p => {
+      if (p.cantidad > 0) {
+        mensaje += `- ${p.nombre} x ${p.cantidad} = $${(p.precio * p.cantidad).toLocaleString()}\n`;
+      }
+    });
+    const total = productos.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
+    mensaje += `\n*Total:* $${total.toLocaleString()}\n\n*Datos de envío:*\n`;
+    mensaje += `• Nombre: ${nombre}\n`;
+    mensaje += `• Cédula: ${cedula}\n`;
+    mensaje += `• Dirección: ${direccion}\n`;
+    mensaje += `• Datos adicionales: ${datosAdicionales}\n`;
+    mensaje += `• Barrio: ${barrio}\n`;
+    mensaje += `• Ciudad y departamento: ${ciudadDepartamento}\n`;
+    mensaje += `• Celular: ${celular}\n`;
+
+    // Codificar y abrir WhatsApp
+    const telefono = "573103723198";
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, "_blank");
+  });
+
+  // Carga inicial
+  cargarProductos();
+  actualizarTotal();
+</script>
+
+</body>
+</html>
