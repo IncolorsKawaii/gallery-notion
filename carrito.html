@@ -2,121 +2,317 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carrito</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carrito IncolorsKawaii</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #ffd1dc, #ffe6f7);
-      font-family: 'Comic Sans MS', cursive;
-      box-sizing: border-box;
-      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #FFF0F5; /* pastel suave */
+      margin: 0; padding: 1rem;
+      color: #333;
     }
-    .container {
-      padding: 10px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    h2 {
+    h1 {
+      color: #FF69B4;
       text-align: center;
     }
+    .productos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
     .producto {
-      margin: 5px 0;
-    }
-    textarea, input {
-      width: 100%;
-      margin-bottom: 6px;
-      font-size: 14px;
-      padding: 5px;
-    }
-    button {
-      background-color: #25D366;
-      color: white;
-      border: none;
-      padding: 10px;
-      width: 100%;
-      font-size: 16px;
-      cursor: pointer;
+      background: #FFD1DC;
       border-radius: 8px;
+      padding: 1rem;
+      width: 180px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      text-align: center;
     }
-    button:hover {
-      background-color: #1ebe5d;
+    .producto button {
+      background: #FF69B4;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .producto button:hover {
+      background: #d8589a;
+    }
+    #carrito {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      background: #FFE4E1;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    #carrito h2 {
+      text-align: center;
+      color: #C71585;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+    th, td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #C71585;
+      text-align: center;
+    }
+    th {
+      background-color: #FFB6C1;
+      color: #4B0082;
+    }
+    #formDatos {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #FFF0F5;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    #formDatos label {
+      display: block;
+      margin-top: 0.8rem;
+      font-weight: 600;
+      color: #8B008B;
+    }
+    #formDatos input, #formDatos textarea {
+      width: 100%;
+      padding: 0.4rem;
+      margin-top: 0.3rem;
+      border-radius: 4px;
+      border: 1px solid #C71585;
+      font-size: 1rem;
+    }
+    #formDatos textarea {
+      resize: vertical;
+    }
+    #btnEnviar {
+      margin-top: 1.2rem;
+      background: #C71585;
+      border: none;
+      color: white;
+      padding: 0.8rem;
+      width: 100%;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #btnEnviar:hover {
+      background: #94006e;
+    }
+    #mensaje {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #C71585;
+    }
+    @media (max-width: 600px) {
+      .productos {
+        flex-direction: column;
+        align-items: center;
+      }
+      .producto {
+        width: 90%;
+      }
+      #carrito, #formDatos {
+        width: 90%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>🛒 Tu carrito</h2>
-    <div id="productos"></div>
-    <h3>📝 Datos de envío</h3>
-    <input type="text" id="nombre" placeholder="Nombre de quien recibe">
-    <input type="text" id="cedula" placeholder="Cédula">
-    <input type="text" id="direccion" placeholder="Dirección">
-    <input type="text" id="adicionales" placeholder="Datos adicionales">
-    <input type="text" id="barrio" placeholder="Barrio">
-    <input type="text" id="ciudad" placeholder="Ciudad y departamento">
-    <input type="text" id="celular" placeholder="Celular">
-    <button onclick="finalizarCompra()">Finalizar compra por WhatsApp</button>
+
+  <h1>Catálogo IncolorsKawaii</h1>
+
+  <!-- Productos demo para agregar -->
+  <div class="productos" id="productos">
+    <div class="producto" data-id="prod1" data-nombre="Kit Papelería Mini" data-precio="12000">
+      <h3>Kit Papelería Mini</h3>
+      <p>Precio: $12,000</p>
+      <button onclick="agregarAlCarrito('prod1','Kit Papelería Mini',12000)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-id="prod2" data-nombre="Agenda Kawaii" data-precio="15000">
+      <h3>Agenda Kawaii</h3>
+      <p>Precio: $15,000</p>
+      <button onclick="agregarAlCarrito('prod2','Agenda Kawaii',15000)">Agregar al carrito</button>
+    </div>
+    <div class="producto" data-id="prod3" data-nombre="Set de Stickers" data-precio="8000">
+      <h3>Set de Stickers</h3>
+      <p>Precio: $8,000</p>
+      <button onclick="agregarAlCarrito('prod3','Set de Stickers',8000)">Agregar al carrito</button>
+    </div>
   </div>
 
+  <!-- Carrito -->
+  <div id="carrito">
+    <h2>Tu Carrito 🛒</h2>
+    <table id="tablaCarrito">
+      <thead>
+        <tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th><th>Quitar</th></tr>
+      </thead>
+      <tbody>
+        <!-- items se agregan con JS -->
+      </tbody>
+    </table>
+    <div id="totalCarrito" style="text-align:right; font-weight:bold; font-size:1.2rem;">Total: $0</div>
+  </div>
+
+  <!-- Formulario de datos -->
+  <form id="formDatos">
+    <h2>Datos de envío y contacto</h2>
+
+    <label for="nombreRecibe">Nombre de la persona que recibe:</label>
+    <input type="text" id="nombreRecibe" name="nombreRecibe" required />
+
+    <label for="cedula">Cédula:</label>
+    <input type="text" id="cedula" name="cedula" required />
+
+    <label for="direccion">Dirección:</label>
+    <textarea id="direccion" name="direccion" rows="2" required></textarea>
+
+    <label for="datosAdicionales">Datos adicionales (casa / piso / apto / torre):</label>
+    <input type="text" id="datosAdicionales" name="datosAdicionales" />
+
+    <label for="barrio">Barrio:</label>
+    <input type="text" id="barrio" name="barrio" required />
+
+    <label for="ciudadDepto">Ciudad y departamento:</label>
+    <input type="text" id="ciudadDepto" name="ciudadDepto" required />
+
+    <label for="celular">Celular:</label>
+    <input type="tel" id="celular" name="celular" required />
+
+    <button type="submit" id="btnEnviar">Solicitar por WhatsApp</button>
+  </form>
+
+  <div id="mensaje"></div>
+
   <script>
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    const productosDiv = document.getElementById('productos');
-
-    function mostrarCarrito() {
-      let total = 0;
-      productosDiv.innerHTML = '';
-      carrito.forEach(p => {
-        const subtotal = p.precio * p.cantidad;
-        total += subtotal;
-        productosDiv.innerHTML += `<div class="producto">• ${p.nombre} x${p.cantidad} - $${subtotal}</div>`;
-      });
-      productosDiv.innerHTML += `<br><strong>Total: $${total}</strong>`;
+    // Función para obtener carrito de localStorage
+    function obtenerCarrito() {
+      const carrito = localStorage.getItem('carritoIncolorsKawaii');
+      return carrito ? JSON.parse(carrito) : {};
     }
 
-    function guardarDatosPersonales() {
-      ['nombre', 'cedula', 'direccion', 'adicionales', 'barrio', 'ciudad', 'celular'].forEach(id => {
-        const valor = document.getElementById(id).value;
-        localStorage.setItem(id, valor);
-      });
+    // Función para guardar carrito en localStorage
+    function guardarCarrito(carrito) {
+      localStorage.setItem('carritoIncolorsKawaii', JSON.stringify(carrito));
     }
 
-    function cargarDatosPersonales() {
-      ['nombre', 'cedula', 'direccion', 'adicionales', 'barrio', 'ciudad', 'celular'].forEach(id => {
-        document.getElementById(id).value = localStorage.getItem(id) || '';
-      });
-    }
-
-    function finalizarCompra() {
-      guardarDatosPersonales();
-
-      let mensaje = '🛒 Pedido Incolors Kawaii:%0A%0A';
+    // Función para actualizar tabla carrito en pantalla
+    function actualizarTabla() {
+      const carrito = obtenerCarrito();
+      const tbody = document.querySelector('#tablaCarrito tbody');
+      tbody.innerHTML = '';
       let total = 0;
 
-      carrito.forEach(p => {
-        const subtotal = p.precio * p.cantidad;
+      for (const id in carrito) {
+        const item = carrito[id];
+        const subtotal = item.precio * item.cantidad;
         total += subtotal;
-        mensaje += `• ${p.nombre} x${p.cantidad} - $${subtotal}%0A`;
-      });
 
-      mensaje += `%0A💰 Total: $${total}%0A%0A🚚 Envío:%0A`;
-      mensaje += `Nombre: ${document.getElementById('nombre').value}%0A`;
-      mensaje += `Cédula: ${document.getElementById('cedula').value}%0A`;
-      mensaje += `Dirección: ${document.getElementById('direccion').value}%0A`;
-      mensaje += `Adicionales: ${document.getElementById('adicionales').value}%0A`;
-      mensaje += `Barrio: ${document.getElementById('barrio').value}%0A`;
-      mensaje += `Ciudad: ${document.getElementById('ciudad').value}%0A`;
-      mensaje += `Celular: ${document.getElementById('celular').value}%0A`;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${item.nombre}</td>
+          <td>${item.cantidad}</td>
+          <td>$${item.precio.toLocaleString()}</td>
+          <td>$${subtotal.toLocaleString()}</td>
+          <td><button onclick="quitarDelCarrito('${id}')">X</button></td>
+        `;
+        tbody.appendChild(tr);
+      }
 
-      const telefono = '573103723198';
-      const url = `https://wa.me/${telefono}?text=${mensaje}`;
-      window.open(url, '_blank');
+      document.getElementById('totalCarrito').textContent = `Total: $${total.toLocaleString()}`;
     }
 
-    // Cargar al inicio
-    mostrarCarrito();
-    cargarDatosPersonales();
+    // Función para agregar producto
+    function agregarAlCarrito(id, nombre, precio) {
+      const carrito = obtenerCarrito();
+
+      if (carrito[id]) {
+        carrito[id].cantidad++;
+      } else {
+        carrito[id] = { nombre, precio, cantidad: 1 };
+      }
+
+      guardarCarrito(carrito);
+      actualizarTabla();
+    }
+
+    // Función para quitar producto
+    function quitarDelCarrito(id) {
+      const carrito = obtenerCarrito();
+      if (carrito[id]) {
+        delete carrito[id];
+        guardarCarrito(carrito);
+        actualizarTabla();
+      }
+    }
+
+    // Al cargar la página, actualizar carrito si hay datos
+    window.onload = actualizarTabla;
+
+    // Enviar pedido por WhatsApp
+    document.getElementById('formDatos').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const carrito = obtenerCarrito();
+      if (Object.keys(carrito).length === 0) {
+        alert('El carrito está vacío.');
+        return;
+      }
+
+      const nombreRecibe = document.getElementById('nombreRecibe').value.trim();
+      const cedula = document.getElementById('cedula').value.trim();
+      const direccion = document.getElementById('direccion').value.trim();
+      const datosAdicionales = document.getElementById('datosAdicionales').value.trim();
+      const barrio = document.getElementById('barrio').value.trim();
+      const ciudadDepto = document.getElementById('ciudadDepto').value.trim();
+      const celular = document.getElementById('celular').value.trim();
+
+      // Construir mensaje WhatsApp
+      let mensaje = 'Pedido IncolorsKawaii 🛍️%0A%0A';
+      mensaje += '🛒 Productos:%0A';
+
+      let total = 0;
+      for (const id in carrito) {
+        const item = carrito[id];
+        const subtotal = item.precio * item.cantidad;
+        total += subtotal;
+        mensaje += `• ${item.nombre} x${item.cantidad} - $${subtotal.toLocaleString()}%0A`;
+      }
+
+      mensaje += `%0A💰 Total: $${total.toLocaleString()}%0A%0A`;
+      mensaje += '🚚 Datos de envío:%0A';
+      mensaje += `• Nombre de la persona que recibe: ${encodeURIComponent(nombreRecibe)}%0A`;
+      mensaje += `• Cédula: ${encodeURIComponent(cedula)}%0A`;
+      mensaje += `• Dirección: ${encodeURIComponent(direccion)}%0A`;
+      mensaje += `• Datos adicionales: ${encodeURIComponent(datosAdicionales)}%0A`;
+      mensaje += `• Barrio: ${encodeURIComponent(barrio)}%0A`;
+      mensaje += `• Ciudad y departamento: ${encodeURIComponent(ciudadDepto)}%0A`;
+      mensaje += `• Celular: ${encodeURIComponent(celular)}%0A`;
+
+      // Número destino WhatsApp
+      const numeroWhatsapp = '573103723198';
+      const urlWhatsapp = `https://wa.me/${numeroWhatsapp}?text=${mensaje}`;
+
+      // Abrir WhatsApp en nueva pestaña
+      window.open(urlWhatsapp, '_blank');
+
+      // Opcional: limpiar carrito y formulario o mostrar mensaje
+      // localStorage.removeItem('carritoIncolorsKawaii');
+      // this.reset();
+      document.getElementById('mensaje').textContent = 'Se abrió WhatsApp con tu pedido. ¡Gracias!';
+
+    });
   </script>
+
 </body>
 </html>
