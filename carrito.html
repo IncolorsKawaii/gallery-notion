@@ -3,138 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carrito Incolors Kawaii</title>
+  <title>Carrito</title>
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
+      background: linear-gradient(135deg, #ffd1dc, #ffe6f7);
+      font-family: 'Comic Sans MS', cursive;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .container {
+      padding: 10px;
+      width: 100%;
       box-sizing: border-box;
     }
-    body {
-      font-family: "Comic Sans MS", cursive;
-      background: linear-gradient(135deg, #ffd5ec, #ffeecf, #d5f5ff);
-      padding: 10px;
-      overflow-x: hidden;
-    }
     h2 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-    .carrito {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-      padding: 15px;
+      text-align: center;
     }
     .producto {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 0.9rem;
+      margin: 5px 0;
     }
-    .producto img {
-      height: 40px;
-      margin-right: 10px;
-    }
-    .formulario {
-      margin-top: 20px;
-    }
-    .formulario textarea {
+    textarea, input {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      font-size: 0.9rem;
+      margin-bottom: 6px;
+      font-size: 14px;
+      padding: 5px;
     }
-    .btn {
-      display: inline-block;
-      padding: 10px 15px;
-      background-color: #ff69b4;
+    button {
+      background-color: #25D366;
       color: white;
       border: none;
-      border-radius: 8px;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
       cursor: pointer;
-      font-weight: bold;
+      border-radius: 8px;
     }
-    .btn:hover {
-      background-color: #ff85c1;
+    button:hover {
+      background-color: #1ebe5d;
     }
   </style>
 </head>
 <body>
-  <div class="carrito">
+  <div class="container">
     <h2>🛒 Tu carrito</h2>
     <div id="productos"></div>
-    <p><strong>Total: </strong><span id="total">$0</span></p>
-
-    <div class="formulario">
-      <textarea id="datos" rows="6" placeholder="Escribe aquí tus datos de envío:
-•Nombre:
-•Cédula:
-•Dirección:
-•Barrio:
-•Ciudad:
-•Celular:
-•Datos adicionales..."></textarea>
-      <button class="btn" onclick="enviarWhatsApp()">Finalizar compra por WhatsApp</button>
-    </div>
+    <h3>📝 Datos de envío</h3>
+    <input type="text" id="nombre" placeholder="Nombre de quien recibe">
+    <input type="text" id="cedula" placeholder="Cédula">
+    <input type="text" id="direccion" placeholder="Dirección">
+    <input type="text" id="adicionales" placeholder="Datos adicionales">
+    <input type="text" id="barrio" placeholder="Barrio">
+    <input type="text" id="ciudad" placeholder="Ciudad y departamento">
+    <input type="text" id="celular" placeholder="Celular">
+    <button onclick="finalizarCompra()">Finalizar compra por WhatsApp</button>
   </div>
 
   <script>
-    const productos = JSON.parse(localStorage.getItem("carrito") || "[]");
-    const contenedor = document.getElementById("productos");
-    const totalEl = document.getElementById("total");
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const productosDiv = document.getElementById('productos');
 
-    function renderCarrito() {
-      contenedor.innerHTML = "";
+    function mostrarCarrito() {
       let total = 0;
-      productos.forEach(p => {
-        total += p.precio * p.cantidad;
-        const item = document.createElement("div");
-        item.className = "producto";
-        item.innerHTML = `
-          <div>
-            <strong>${p.nombre}</strong> x${p.cantidad}
-          </div>
-          <div>$${p.precio * p.cantidad}</div>
-        `;
-        contenedor.appendChild(item);
+      productosDiv.innerHTML = '';
+      carrito.forEach(p => {
+        const subtotal = p.precio * p.cantidad;
+        total += subtotal;
+        productosDiv.innerHTML += `<div class="producto">• ${p.nombre} x${p.cantidad} - $${subtotal}</div>`;
       });
-      totalEl.textContent = `$${total.toLocaleString()}`;
+      productosDiv.innerHTML += `<br><strong>Total: $${total}</strong>`;
     }
 
-    renderCarrito();
-
-    window.addEventListener("message", (e) => {
-      if (e.data && e.data.tipo === "agregarProducto") {
-        const nuevo = e.data.producto;
-        const existente = productos.find(p => p.id === nuevo.id);
-        if (existente) {
-          existente.cantidad += nuevo.cantidad;
-        } else {
-          productos.push(nuevo);
-        }
-        localStorage.setItem("carrito", JSON.stringify(productos));
-        renderCarrito();
-      }
-    });
-
-    function enviarWhatsApp() {
-      const datos = document.getElementById("datos").value.trim();
-      if (!datos) {
-        alert("Por favor llena tus datos de envío.");
-        return;
-      }
-
-      let mensaje = `🛒 Pedido Incolors Kawaii:\n\n`;
-      productos.forEach(p => {
-        mensaje += `• ${p.nombre} x${p.cantidad} - $${p.precio * p.cantidad}\n`;
+    function guardarDatosPersonales() {
+      ['nombre', 'cedula', 'direccion', 'adicionales', 'barrio', 'ciudad', 'celular'].forEach(id => {
+        const valor = document.getElementById(id).value;
+        localStorage.setItem(id, valor);
       });
-      const total = productos.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
-      mensaje += `\n💰 Total: $${total.toLocaleString()}\n\n🚚 Envío:\n${datos}`;
-      
-      const link = `https://wa.me/573103723198?text=${encodeURIComponent(mensaje)}`;
-      window.open(link, "_blank");
     }
+
+    function cargarDatosPersonales() {
+      ['nombre', 'cedula', 'direccion', 'adicionales', 'barrio', 'ciudad', 'celular'].forEach(id => {
+        document.getElementById(id).value = localStorage.getItem(id) || '';
+      });
+    }
+
+    function finalizarCompra() {
+      guardarDatosPersonales();
+
+      let mensaje = '🛒 Pedido Incolors Kawaii:%0A%0A';
+      let total = 0;
+
+      carrito.forEach(p => {
+        const subtotal = p.precio * p.cantidad;
+        total += subtotal;
+        mensaje += `• ${p.nombre} x${p.cantidad} - $${subtotal}%0A`;
+      });
+
+      mensaje += `%0A💰 Total: $${total}%0A%0A🚚 Envío:%0A`;
+      mensaje += `Nombre: ${document.getElementById('nombre').value}%0A`;
+      mensaje += `Cédula: ${document.getElementById('cedula').value}%0A`;
+      mensaje += `Dirección: ${document.getElementById('direccion').value}%0A`;
+      mensaje += `Adicionales: ${document.getElementById('adicionales').value}%0A`;
+      mensaje += `Barrio: ${document.getElementById('barrio').value}%0A`;
+      mensaje += `Ciudad: ${document.getElementById('ciudad').value}%0A`;
+      mensaje += `Celular: ${document.getElementById('celular').value}%0A`;
+
+      const telefono = '573103723198';
+      const url = `https://wa.me/${telefono}?text=${mensaje}`;
+      window.open(url, '_blank');
+    }
+
+    // Cargar al inicio
+    mostrarCarrito();
+    cargarDatosPersonales();
   </script>
 </body>
 </html>
