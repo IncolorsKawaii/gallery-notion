@@ -12,8 +12,8 @@
     }
 
     html, body {
-      width: 566px;  /* 15cm aprox */
-      height: 755px; /* 20cm aprox */
+      /* Removidos width y height fijos */
+      min-height: 100vh;
       overflow: hidden; /* sin scrollbars */
       background: linear-gradient(135deg, #ffd1dc, #ffe4e1, #e0ffff, #f3e5f5);
       font-family: sans-serif;
@@ -25,16 +25,20 @@
 
     .carousel-container {
       width: 100%;
-      height: 100%;
+      height: 100vh; /* ocupa toda la altura visible */
       display: flex;
       align-items: center;
       justify-content: center;
       background: transparent; /* no fondo adicional */
+      padding: 1rem; /* para que no toque bordes en móviles */
+      box-sizing: border-box;
     }
 
     .swiper-container {
-      width: 90%;
-      height: 90%;
+      width: 90vw;  /* ancho relativo a viewport */
+      max-width: 566px; /* máximo 15cm aprox */
+      height: 80vh; /* altura relativa */
+      max-height: 755px; /* máximo 20cm aprox */
       border: 0.5mm solid black; /* borde de la imagen */
       border-radius: 8px;
       overflow: hidden;
@@ -43,10 +47,11 @@
 
     .swiper-slide img {
       width: 100%;
-      height: 100%;
+      height: auto; /* para mantener proporción */
       object-fit: contain;
       pointer-events: none; /* no permitir click derecho */
       -webkit-user-drag: none; /* no arrastrar imagen */
+      user-select: none;
     }
 
     /* Estilos para flechas */
