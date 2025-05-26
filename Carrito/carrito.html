@@ -134,6 +134,49 @@
         width: 90%;
       }
     }
+
+    /* Agrega o reemplaza el CSS del carrito para que sea fijo y flotante */
+
+#carrito {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 320px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #FFE4E1;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.4);
+  z-index: 9999;
+  font-size: 0.9rem;
+}
+
+/* Ajustar tabla y texto para que quepa bien */
+#carrito table {
+  font-size: 0.9rem;
+}
+
+#carrito h2 {
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #C71585;
+  text-align: center;
+}
+
+/* Para móviles, el carrito ocupa ancho casi completo y cambia a bottom y left centrado */
+@media (max-width: 600px) {
+  #carrito {
+    width: 90%;
+    left: 50%;
+    right: auto;
+    bottom: 0.5rem;
+    transform: translateX(-50%);
+    max-height: 50vh;
+  }
+}
+
   </style>
 </head>
 <body>
